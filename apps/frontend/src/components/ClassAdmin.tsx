@@ -107,7 +107,7 @@ function ClassAdmin({
           >
             {status === "active" ? "End" : "Start"}
           </DialogTrigger>
-          <DialogContent className="bg-zinc-50 border-zinc-700 flex justify-center items-center w-72 md:w-full rounded-lg">
+          <DialogContent className="bg-zinc-50 border-zinc-700 flex justify-center items-center w-72 md:w-full">
             <CheckHair startSession={startSession} />
           </DialogContent>
         </Dialog>

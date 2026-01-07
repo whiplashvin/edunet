@@ -32,7 +32,6 @@ function Whiteboard() {
     }
 
     if (WhiteBoardState.length > 0) {
-      console.log(WhiteBoardState[0]);
       const canvas = CanvasRef.current;
       if (!canvas) return;
 
@@ -55,6 +54,7 @@ function Whiteboard() {
         let color = "";
         let lineWidth = 2;
         for (let i = 1; i < WhiteBoardState.length; i++) {
+          console.log(WhiteBoardState[i].event);
           switch (WhiteBoardState[i].event) {
             case "board-clear":
               ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -83,6 +83,10 @@ function Whiteboard() {
                 xStart = newX;
                 yStart = newY;
               }
+              break;
+            case "mouse-up":
+              console.log("Mouse up!");
+              // isDrawing = false;
               break;
             default:
               break;
@@ -96,24 +100,40 @@ function Whiteboard() {
 
         let color = "black";
         let lineWidth = 2;
+        let isDrawing = false;
+
         for (let i = 1; i < WhiteBoardState.length; i++) {
+          console.log(WhiteBoardState[i].event);
           switch (WhiteBoardState[i].event) {
             case "board-clear":
               ctx.clearRect(0, 0, canvas.width, canvas.height);
               break;
             case "board-erase":
+              isDrawing = true;
               color = "#d4d4d4";
               lineWidth = 20;
               break;
             case "board-draw":
+              isDrawing = true;
               color = "black";
               lineWidth = 2;
               break;
             case "board-color":
               color = WhiteBoardState[i].stroke;
               break;
+            case "mouse-down":
+              isDrawing = true;
+              xStart = xTimes * WhiteBoardState[i].x;
+              yStart = yTimes * WhiteBoardState[i].y;
+
+              ctx.beginPath();
+              ctx.moveTo(xStart, yStart);
+              break;
+              break;
             case "mouse-move":
-              {
+              if (!isDrawing) {
+                break;
+              } else {
                 const newX = xTimes * WhiteBoardState[i].x;
                 const newY = yTimes * WhiteBoardState[i].y;
                 ctx.beginPath();
@@ -125,6 +145,10 @@ function Whiteboard() {
                 xStart = newX;
                 yStart = newY;
               }
+              break;
+            case "mouse-up":
+              isDrawing = false;
+              ctx.closePath();
               break;
             default:
               break;
@@ -248,6 +272,15 @@ function Whiteboard() {
 
   function stop() {
     setIsDrawing(false);
+
+    Socket?.send(
+      JSON.stringify({
+        event: "stop-drawing-board",
+        payload: {
+          sessionId,
+        },
+      })
+    );
   }
 
   const clearCanvas = () => {
@@ -267,6 +300,7 @@ function Whiteboard() {
         onMouseDown={(e) => start(e)}
         onMouseMove={(e) => draw(e)}
         onMouseUp={stop}
+        onMouseLeave={stop}
       />
       {Role === "admin" && (
         <WhiteBoardControls

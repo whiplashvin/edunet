@@ -58,7 +58,7 @@ export class User {
           SessionManager.getInstance().whiteBoardDraw(parsed.payload.sessionId);
           break;
         case "start-drawing-board":
-          SessionManager.getInstance().startWhiteBoard(
+          SessionManager.getInstance().mouseDownWhiteBoard(
             parsed.payload.sessionId,
             parsed.payload.x,
             parsed.payload.y,
@@ -67,12 +67,17 @@ export class User {
           );
           break;
         case "move-drawing-board":
-          SessionManager.getInstance().moveWhiteBoard(
+          SessionManager.getInstance().mouseMoveWhiteBoard(
             parsed.payload.sessionId,
             parsed.payload.x,
             parsed.payload.y,
             parsed.payload.adminHeight,
             parsed.payload.adminWidth
+          );
+          break;
+        case "stop-drawing-board":
+          SessionManager.getInstance().mouseUpWhiteBoard(
+            parsed.payload.sessionId
           );
           break;
         case "whiteBoard-erase":

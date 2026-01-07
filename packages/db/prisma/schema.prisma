@@ -46,6 +46,7 @@ model CurrentRoomState{
   epoch      BigInt
   session    Session @relation(fields: [session_Id],references: [sessionId])
   session_Id String
+  // @@index([session_Id, epoch(sort: Desc)])
 }
 
 

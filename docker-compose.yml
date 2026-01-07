@@ -1,11 +1,15 @@
 version: "3.9"
 services:
   livekit:
-    image: livekit/livekit-server:latest
+    # image: livekit/livekit-server:latest
+    image: livekit/livekit-server:v1.6.2
     command: ["--dev", "--bind", "0.0.0.0"]
     ports:
       - "7880:7880"
       - "7881:7881/udp"
+    environment:
+      NODE_IP: 192.168.1.6
+      UDP_PORT: 7881
     networks:
       - edu-net
   db:

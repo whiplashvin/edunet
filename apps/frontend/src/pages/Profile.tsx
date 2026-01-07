@@ -28,7 +28,7 @@ function Profile() {
       >
         Profile
       </h1>
-      <div className="w-[95%] mx-auto flex flex-col items-start px-5 py-10 lg:flex-row bg-gradient-to-tr from-30% from-sky-100 via-50% via-fuchsia-100 to-100% to-amber-100 rounded-xl gap-10 relative mt-10 shadow-lg">
+      <div className="w-[95%] mx-auto flex flex-col items-start px-5 py-10 lg:flex-row bg-gradient-to-tr from-30% from-sky-100 via-50% via-fuchsia-100 to-100% to-amber-100 rounded-xl gap-10 relative mt-10 shadow-lg border border-zinc-200">
         <div className="size-20 rounded-full bg-white flex items-center justify-center">
           <CiUser fontSize={40} color="black" />
         </div>

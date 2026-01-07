@@ -213,7 +213,7 @@ export class SessionManager {
       }
     });
   }
-  startWhiteBoard(
+  mouseDownWhiteBoard(
     sessionId: string,
     x: string,
     y: string,
@@ -226,9 +226,9 @@ export class SessionManager {
       messages: [
         {
           value: JSON.stringify({
+            event: "mouse-down",
             sessionId: sessionId,
             timeStamp: Date.now(),
-            event: "mouse-move",
             x: x,
             y: y,
             adminHeight: height,
@@ -253,7 +253,7 @@ export class SessionManager {
       }
     });
   }
-  moveWhiteBoard(
+  mouseMoveWhiteBoard(
     sessionId: string,
     x: string,
     y: string,
@@ -291,6 +291,20 @@ export class SessionManager {
           })
         );
       }
+    });
+  }
+  mouseUpWhiteBoard(sessionId: string) {
+    producer.send({
+      topic: "events",
+      messages: [
+        {
+          value: JSON.stringify({
+            sessionId: sessionId,
+            timeStamp: Date.now(),
+            event: "mouse-up",
+          }),
+        },
+      ],
     });
   }
   whiteBoardColorChange(sessionId: string, color: string) {

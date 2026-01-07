@@ -123,11 +123,11 @@ route.get("/:sessionId/videoToken", userMiddleware, async (req, res) => {
 
 route.post("/:sessionId/join", userMiddleware, async (req, res) => {
   const { sessionId } = req.params;
-  const jwtToken = req.jwtToken;
-  const user = await db.user.findFirst({ where: { id: req.userId } });
   if (!sessionId) {
     return;
   }
+  const jwtToken = req.jwtToken;
+  const user = await db.user.findFirst({ where: { id: req.userId } });
   if (!user) {
     return;
   }
@@ -169,6 +169,7 @@ route.post("/:sessionId/join", userMiddleware, async (req, res) => {
           epoch: "desc",
         },
       });
+      console.log(latestEvent);
       const correspondingPayload = await db.payload.findMany({
         where: { currRoomStateId: latestEvent?.id },
         orderBy: {
@@ -185,6 +186,7 @@ route.post("/:sessionId/join", userMiddleware, async (req, res) => {
           stroke: true,
         },
       });
+      console.log(correspondingPayload);
       res.status(200).json({
         message: "Session joined successfully.",
         jwtToken,

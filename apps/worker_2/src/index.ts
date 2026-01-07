@@ -60,7 +60,7 @@ const maxBatch = 20;
             case "board-draw":
               console.log("board-draw");
               const x = await db.currentRoomState.findFirst({
-                where: { event: "board-open" },
+                where: { event: "board-open", session_Id: payload.sessionId },
                 orderBy: {
                   epoch: "desc",
                 },
@@ -73,10 +73,34 @@ const maxBatch = 20;
                 },
               });
               break;
+            case "mouse-down":
+              const boardTemp = await db.currentRoomState.findFirst({
+                where: { event: "board-open", session_Id: payload.sessionId },
+                orderBy: {
+                  epoch: "desc",
+                },
+              });
+
+              const pTemp = {
+                event: "mouse-down",
+                epoch: payload.timeStamp,
+                x: Number(payload.x),
+                y: Number(payload.y),
+                adminHeight: Number(payload.adminHeight),
+                adminWidth: Number(payload.adminWidth),
+                currRoomStateId: boardTemp!.id,
+              };
+              // buffer.push(pTemp);
+              // if (buffer.length >= maxBatch) {
+              //   await db.payload.createMany({ data: buffer });
+              //   buffer = [];
+              // }
+              await db.payload.create({ data: pTemp });
+              break;
             case "mouse-move":
               console.log("board-mouse-move");
               const board = await db.currentRoomState.findFirst({
-                where: { event: "board-open" },
+                where: { event: "board-open", session_Id: payload.sessionId },
                 orderBy: {
                   epoch: "desc",
                 },
@@ -96,10 +120,25 @@ const maxBatch = 20;
                 buffer = [];
               }
               break;
+            case "mouse-up":
+              const board1 = await db.currentRoomState.findFirst({
+                where: { event: "board-open", session_Id: payload.sessionId },
+                orderBy: {
+                  epoch: "desc",
+                },
+              });
+              await db.payload.create({
+                data: {
+                  epoch: payload.timeStamp,
+                  currRoomStateId: board1!.id,
+                  event: "mouse-up",
+                },
+              });
+              break;
             case "board-clear":
               console.log("board-clear");
               const b = await db.currentRoomState.findFirst({
-                where: { event: "board-open" },
+                where: { event: "board-open", session_Id: payload.sessionId },
                 orderBy: {
                   epoch: "desc",
                 },
@@ -115,7 +154,7 @@ const maxBatch = 20;
             case "board-erase":
               console.log("board-erase");
               const bo = await db.currentRoomState.findFirst({
-                where: { event: "board-open" },
+                where: { event: "board-open", session_Id: payload.sessionId },
                 orderBy: {
                   epoch: "desc",
                 },
@@ -131,7 +170,7 @@ const maxBatch = 20;
             case "board-color":
               console.log("board-color");
               const bb = await db.currentRoomState.findFirst({
-                where: { event: "board-open" },
+                where: { event: "board-open", session_Id: payload.sessionId },
                 orderBy: {
                   epoch: "desc",
                 },
