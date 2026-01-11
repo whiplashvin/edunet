@@ -52,7 +52,7 @@ function SecondarySessControl() {
           <Chat />
         </SheetContent>
       </Sheet>
-      {/* <span className="text-zinc-600 text-[8px] md:text-xs font-extralight group-hover:text-blue-200">
+      {/* <span className="text-zinc-600 text-[8px] md:text-xs font-extralight group-hover:text-sky-200">
         Message
       </span> */}
     </div>

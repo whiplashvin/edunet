@@ -6,7 +6,7 @@ import multer from "multer";
 import { redisClient, redisPublisher, redisSubscriber } from "../..";
 import { RoomServiceClient, AccessToken } from "livekit-server-sdk";
 import { userMiddleware } from "../../middleware/user";
-import { ResponseType } from "axios";
+
 require("dotenv").config();
 
 const devkey = process.env.LIVE_KIT_KEY;
@@ -80,11 +80,11 @@ route.post("/:sessionId/start", adminMiddleware, async (req, res) => {
     return;
   }
   const session = await db.session.update({
-    where: { sessionId: sessionId },
+    where: { sessionId: sessionId as string },
     data: { status: "active" },
   });
   const opts = {
-    name: sessionId,
+    name: sessionId as string,
     emptyTimeout: 10 * 60,
     maxParticipants: 20,
     canPublish: true,
@@ -110,9 +110,9 @@ route.get("/:sessionId/videoToken", userMiddleware, async (req, res) => {
     return;
   }
   if (user.role === "admin") {
-    token = await adminVideoToken(sessionId, user.username);
+    token = await adminVideoToken(sessionId as string, user.username);
   } else {
-    token = await userVideoToken(sessionId, user.username);
+    token = await userVideoToken(sessionId as string, user.username);
   }
 
   res.status(200).json({
@@ -132,7 +132,7 @@ route.post("/:sessionId/join", userMiddleware, async (req, res) => {
     return;
   }
   const session = await db.session.findUnique({
-    where: { sessionId: sessionId },
+    where: { sessionId: sessionId as string },
   });
   if (!session) {
     res.status(400).json({ message: "No session found with the sessionId" });
@@ -209,14 +209,14 @@ route.post("/:sessionId/end", adminMiddleware, async (req, res) => {
   }
   await db.session.update({
     where: {
-      sessionId: sessionId,
+      sessionId: sessionId as string,
     },
     data: {
       status: "inactive",
     },
   });
 
-  svc.deleteRoom(sessionId);
+  svc.deleteRoom(sessionId as string);
   res.status(200).json({ message: "Session ended successfully" });
 });
 
@@ -237,7 +237,9 @@ route.get("/task/:taskId", adminMiddleware, async (req, res) => {
   const { taskId } = req.params;
 
   try {
-    const images = await db.image.findMany({ where: { taskId } });
+    const images = await db.image.findMany({
+      where: { taskId: taskId as string },
+    });
 
     if (images.length > 0) {
       res.status(200).json({ images, status: "completed" });
@@ -257,7 +259,7 @@ route.get("/:sessionId/participants", adminMiddleware, async (req, res) => {
   if (!sessionId) {
     return;
   }
-  const participants = await svc.listParticipants(sessionId);
+  const participants = await svc.listParticipants(sessionId as string);
   res.status(200).json({ participants });
 });
 route.post(
@@ -269,7 +271,7 @@ route.post(
       return;
     }
     const { identity } = req.body;
-    const removed = await svc.removeParticipant(sessionId, identity);
+    const removed = await svc.removeParticipant(sessionId as string, identity);
     res.status(200).json({ removed });
   }
 );
@@ -279,7 +281,7 @@ route.get("/:sessionId/chat", userMiddleware, async (req, res) => {
     return;
   }
   const chat = await db.chat.findMany({
-    where: { session_Id: sessionId },
+    where: { session_Id: sessionId as string },
     orderBy: { epoch: "asc" },
     select: {
       sender: true,

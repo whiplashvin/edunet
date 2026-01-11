@@ -33,12 +33,12 @@ function CheckHair({ startSession }: { startSession: () => Promise<void> }) {
   }, [cam, mic]);
   return (
     <div className="">
-      <DialogTitle className="text-lg font-thin text-zinc-700 md:mb-5">
+      <DialogTitle className="text-lg font-thin text-zinc-700 mb-5 tracking-normal">
         Check camera and mic
       </DialogTitle>
       <video
         ref={vidRef}
-        className="h-44 w-72 md:h-72 md:w-96"
+        className="h-52 w-full md:h-full md:w-full mb-2"
         style={{ transform: "scaleX(-1)" }}
       />
       <div className="flex justify-center items-center gap-2 mb-2">
@@ -63,7 +63,7 @@ function CheckHair({ startSession }: { startSession: () => Promise<void> }) {
         )}
       </div>
       <button
-        className="bg-blue-400 hover:bg-blue-500 w-full py-2 rounded-lg font-thin text-white"
+        className="bg-sky-400/30 border-[0.5px] border-sky-500 text-zinc-950 hover:bg-sky-600/30 w-full py-2 rounded-lg font-thin"
         onClick={startSession}
       >
         Start

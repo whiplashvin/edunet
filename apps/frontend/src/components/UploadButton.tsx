@@ -27,7 +27,7 @@ function UploadButton({
         }}
       />
       {/* <span
-        className={`text-[10px] md:text-xs group-hover:text-blue-200 font-thin ${loading ? "text-blue-300" : "text-zinc-600"}`}
+        className={`text-[10px] md:text-xs group-hover:text-sky-200 font-thin ${loading ? "text-sky-300" : "text-zinc-600"}`}
       >
         {loading ? "Uploading..." : "Upload"}
       </span> */}

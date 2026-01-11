@@ -1,13 +1,13 @@
 {
-  "name": "unacademy_v2",
+  "name": "edunet",
   "private": true,
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prisma-init": "cd packages/db && npx prisma migrate dev --name init && npx prisma generate && cd ../..",
-    "http-start": "npm run prisma-init && cd apps/http && npm run dev",
+    "prisma-init": "cd packages/db && npx prisma migrate deploy && npx prisma generate && cd ../..",
+    "http-start": "npm run prisma-init && cd apps/http && node dist/index.js",
     "ws-start": "cd apps/webSocket && npm run dev",
     "w_1-start": "npm run prisma-init && cd apps/worker_1 && npm run dev",
     "w_2-start": "npm run prisma-init && cd apps/worker_2 && npm run dev"
@@ -27,7 +27,6 @@
   ],
   "dependencies": {
     "@types/cors": "^2.8.17",
-    "cors": "^2.8.5",
-    "prisma": "^6.0.1"
+    "cors": "^2.8.5"
   }
 }

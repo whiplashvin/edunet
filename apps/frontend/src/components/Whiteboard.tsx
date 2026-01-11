@@ -390,9 +390,10 @@ function Whiteboard() {
   const [strokes, setStrokes] = React.useState<Stroke[]>([]);
   const [strokeWidth, setStrokeWidth] = useState(7);
 
-  const temp = useRef<Point[]>([]);
-  const temp2 = useRef<Stroke[]>([]);
-  const currColor = useRef<string>("#343a40");
+  const boardReconstructBuffer = useRef<Point[]>([]);
+  const boardReconstruct = useRef<Stroke[]>([]);
+  const boardReconstructColor = useRef<string>("#343a40");
+  const boardReconstructStroke = useRef<number>(7);
 
   useEffect(() => {
     if (WhiteBoardState.length > 0) {
@@ -466,24 +467,28 @@ function Whiteboard() {
         for (let i = 1; i < WhiteBoardState.length; i++) {
           switch (WhiteBoardState[i].event) {
             case "board-clear":
-              temp.current = [];
-              temp2.current = [];
+              boardReconstructBuffer.current = [];
+              boardReconstruct.current = [];
               break;
             case "board-erase":
               isDrawing = true;
+              boardReconstructColor.current = "#f5faff";
+              boardReconstructStroke.current = 14;
               break;
             case "board-draw":
               isDrawing = true;
-              currColor.current = "#343a40";
+              boardReconstructColor.current = "#343a40";
+              boardReconstructStroke.current = 7;
               break;
             case "board-color":
-              currColor.current = WhiteBoardState[i].stroke;
+              boardReconstructColor.current = WhiteBoardState[i].stroke;
+              boardReconstructStroke.current = 7;
               break;
             case "mouse-down":
               isDrawing = true;
               xStart = xTimes * WhiteBoardState[i].x;
               yStart = yTimes * WhiteBoardState[i].y;
-              temp.current.push([xStart, yStart]);
+              boardReconstructBuffer.current.push([xStart, yStart]);
               break;
             case "mouse-move":
               if (!isDrawing) {
@@ -491,17 +496,17 @@ function Whiteboard() {
               } else {
                 const newX = xTimes * WhiteBoardState[i].x;
                 const newY = yTimes * WhiteBoardState[i].y;
-                temp.current.push([newX, newY]);
+                boardReconstructBuffer.current.push([newX, newY]);
               }
               break;
             case "mouse-up":
               isDrawing = false;
-              temp2.current.push({
-                points: temp.current,
-                size: 7,
-                color: currColor.current,
+              boardReconstruct.current.push({
+                points: boardReconstructBuffer.current,
+                size: boardReconstructStroke.current,
+                color: boardReconstructColor.current,
               });
-              temp.current = [];
+              boardReconstructBuffer.current = [];
               break;
             default:
               break;
@@ -529,7 +534,7 @@ function Whiteboard() {
       ctx.scale(dpr, dpr);
     }
 
-    for (const t of temp2.current) {
+    for (const t of boardReconstruct.current) {
       const stroke = getStroke(t.points, {
         size: t.size,
         thinning: 0.5,
@@ -683,8 +688,8 @@ function Whiteboard() {
   }
   const clearCanvas = () => {
     setStrokes([]);
-    temp.current = [];
-    temp2.current = [];
+    boardReconstructBuffer.current = [];
+    boardReconstruct.current = [];
     ContextRef.current?.clearRect(
       0,
       0,

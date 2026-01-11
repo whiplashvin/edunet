@@ -67,7 +67,7 @@ function Chat() {
   return (
     <div className="bg-zinc-200 row-span-4 rounded-md p-2 h-full flex flex-col justify-between relative">
       {isFetching && (
-        <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-300 font-extralight text-sm">
+        <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sky-300 font-extralight text-sm">
           fetching...
         </p>
       )}
@@ -81,7 +81,7 @@ function Chat() {
             className={`${c.user === CurrUser ? "justify-end" : "justify-start"} flex items-center bg-zinc-50 rounded px-1`}
           >
             <span
-              className={`${c.user === CurrUser ? "hidden" : "flex"} size-3 md:size-6 p-2 text-[8px] md:text-xs font-extralight rounded-full bg-zinc-900  justify-center items-center text-blue-300`}
+              className={`${c.user === CurrUser ? "hidden" : "flex"} size-3 md:size-6 p-2 text-[8px] md:text-xs font-extralight rounded-full bg-zinc-900  justify-center items-center text-sky-300`}
             >
               {c.user.split("")[0].toUpperCase()}
               {c.user.split("")[1].toUpperCase()}
@@ -109,7 +109,7 @@ function Chat() {
           />
         </div>
         <IoSendSharp
-          className="text-sm md:text-xl text-zinc-600 cursor-pointer hover:scale-110 hover:text-blue-300"
+          className="text-sm md:text-xl text-zinc-600 cursor-pointer hover:scale-110 hover:text-sky-300"
           onClick={() => {
             if (message.length > 0) {
               send();

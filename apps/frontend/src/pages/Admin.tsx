@@ -12,17 +12,18 @@ function Admin() {
   }, []);
   return (
     <div
-      className={`w-full col-span-5 bg-zinc-95 relative overflow-y-auto scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-500`}
+      className={`w-full col-span-5 bg-zinc-50 relative overflow-y-auto scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-500`}
       style={{
         // height: `calc(100vh - ${NavbarHeight}px - 16px - 16px)`,
         height: "100vh",
         overflowY: `${deviceHeight! < 800 ? "scroll" : "auto"}`,
       }}
     >
-      <h1 className="text-sm md:text-xl text-zinc-900 font-light border-b border-zinc-200 p-4">
-        Manage Sessions
-      </h1>
-      <div className="p-3 flex justify-end">
+      <div className="border-b border-zinc-200 h-14" />
+      <div className="flex justify-between items-center p-4 border border-zinc-300 rounded-xl my-5 w-[95%] mx-auto">
+        <div className="text-2xl text-sky-600 font-extralight">
+          Manage Sessions
+        </div>
         <CreateSess />
       </div>
       <AllClassAdmin />

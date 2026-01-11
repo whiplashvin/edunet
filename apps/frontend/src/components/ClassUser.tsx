@@ -82,37 +82,35 @@ function ClassUser({ title, sessionId }: { title: string; sessionId: string }) {
     }
   }
   return (
-    // <li className="mb-2 px-4 py-3 rounded-xl bg-zinc-900 max-h-72 min-w-80">
-    // <li className="mb-2 px-4 py-3 rounded-xl max-w-80 bg-zinc-900">
-    <li className="mb-2 px-4 py-3 rounded-xl max-w-80 bg-zinc-50 min-w-80 shadow-lg border border-zinc-200">
-      <div className="flex justify-between mb-10 flex-wrap">
-        {/* <span className="text-zinc-300 font-thin text-xl md:text-4xl tracking-tight"> */}
-        <span className="text-zinc-900 font-thin text-xl md:text-3xl tracking-tight">
-          {title}
-        </span>
-        <div
-          className={`flex items-center gap-2 font-thin text-sm md:text-base tracking-tight text-blue-500`}
-        >
-          <MdOnlinePrediction />
-          <span>Active</span>
+    <div className="w-ful h-full p-2 bg-white/10 rounded-xl border border-white shadow-xl">
+      <li className="mb-2 px-4 py-3 rounded-lg bg-zinc-100 w-full h-full border-[0.5px] border-zinc-200 shadow">
+        <div className="flex justify-between mb-5 flex-wrap">
+          <span className="text-zinc-900 font-thin text-xl md:text-2xl tracking-normal">
+            {title}
+          </span>
+          <div
+            className={`${status === "active" ? "text-sky-300" : "text-zinc-400"} flex items-center gap-2 font-thin  text-sm md:text-base tracking-tight`}
+          >
+            <MdOnlinePrediction />
+            <span>Active</span>
+          </div>
         </div>
-      </div>
-      {/* <p className="text-zinc-300 text-[10px] md:text-sm tracking-tight leading-5 font-thin mb-10"> */}
-      <p className="text-zinc-700 text-[10px] md:text-sm  leading-5 font-thin mb-10">
-        <span className="text-blue-500">Description:</span> Lorem ipsum dolor
-        sit amet consectetur adipisicing elit. Sed autem non tenetur! Mollitia
-        illo aut voluptatum, quas, voluptas illum soluta nemo vel qui aperiam
-        ducimus incidunt minima, obcaecati ex! Hic.
-      </p>
-      <div className="flex w-full gap-2">
-        <button
-          onClick={joinSession}
-          className={`bg-blue-300 hover:bg-blue-400 py-3 rounded-lg text-neutral-950 font-thin w-full text-[10px] md:text-sm ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
-        >
-          {loading ? "Joining..." : "Join"}
-        </button>
-      </div>
-    </li>
+        <p className="text-zinc-700 text-[10px] md:text-[12px]  leading-5 font-extralight mb-5">
+          <span className="text-sky-500">Description:</span> Lorem ipsum dolor
+          sit amet consectetur adipisicing elit. Sed autem non tenetur! Mollitia
+          illo aut voluptatum, quas.
+        </p>
+        <div className="flex w-full gap-2">
+          <button
+            onClick={joinSession}
+            // className={`${status === "active" ? "bg-rose-800" : "bg-sky-400/30 border-[0.5px] border-sky-500 hover:bg-sky-600/30"} py-2 rounded-lg text-neutral-950 font-thin cursor-pointer w-full text-sm shadow-md`}
+            className={`bg-sky-400/30 hover:bg-sky-600/30 border-[0.5px] border-sky-500 py-2 rounded-lg text-neutral-950 font-thin shadow-md w-full text-[10px] md:text-sm ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
+          >
+            {loading ? "Joining..." : "Join"}
+          </button>
+        </div>
+      </li>
+    </div>
   );
 }
 

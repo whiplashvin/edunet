@@ -75,44 +75,45 @@ function ClassAdmin({
     navigate(`/session/${sessionId}`);
   }
   return (
-    <li className="mb-2 px-4 py-3 rounded-xl max-w-80 bg-zinc-50 min-w-80 shadow-lg border border-zinc-200">
-      <div className="flex justify-between mb-10 flex-wrap">
-        <span className="text-zinc-900 font-thin text-xl md:text-3xl tracking-tight">
-          {title}
-        </span>
-        <div
-          className={`${status === "active" ? "text-blue-300" : "text-zinc-400"} flex items-center gap-2 font-thin  text-sm md:text-base tracking-tight`}
-        >
-          {status === "active" && <MdOnlinePrediction />}
-          <span>{status}</span>
-        </div>
-      </div>
-      <p className="text-zinc-700 text-[10px] md:text-sm  leading-5 font-thin mb-10">
-        <span className="text-blue-500">Description:</span> Lorem ipsum dolor
-        sit amet consectetur adipisicing elit. Sed autem non tenetur! Mollitia
-        illo aut voluptatum, quas, voluptas illum soluta nemo vel qui aperiam
-        ducimus incidunt minima, obcaecati ex! Hic.
-      </p>
-      <div className="flex w-full gap-2">
-        <button
-          disabled={true}
-          className={`${status === "active" ? "hidden" : "block"} bg-zinc-700 hover:bg-zinc-600 py-3 rounded-lg text-zinc-300 font-thin w-full text-sm cursor-not-allowed`}
-        >
-          Delete
-        </button>
-
-        <Dialog>
-          <DialogTrigger
-            className={`${status === "active" ? "bg-rose-800" : "bg-blue-300 hover:bg-blue-400"} py-3 rounded-lg text-neutral-950 font-thin cursor-pointer w-full text-sm`}
+    <div className="w-ful h-full p-2 bg-white/10 rounded-xl border border-white shadow-xl">
+      <li className="mb-2 px-4 py-3 rounded-lg bg-zinc-100 w-full h-full border-[0.5px] border-zinc-200 shadow">
+        <div className="flex justify-between mb-5 flex-wrap">
+          <span className="text-zinc-900 font-thin text-xl md:text-2xl tracking-normal">
+            {title}
+          </span>
+          <div
+            className={`${status === "active" ? "text-sky-300" : "text-zinc-400"} flex items-center gap-2 font-thin  text-sm md:text-base tracking-tight`}
           >
-            {status === "active" ? "End" : "Start"}
-          </DialogTrigger>
-          <DialogContent className="bg-zinc-50 border-zinc-700 flex justify-center items-center w-72 md:w-full">
-            <CheckHair startSession={startSession} />
-          </DialogContent>
-        </Dialog>
-      </div>
-    </li>
+            {status === "active" && <MdOnlinePrediction />}
+            <span>{status}</span>
+          </div>
+        </div>
+        <p className="text-zinc-700 text-[10px] md:text-[12px]  leading-5 font-extralight mb-5">
+          <span className="text-sky-500">Description:</span> Lorem ipsum dolor
+          sit amet consectetur adipisicing elit. Sed autem non tenetur! Mollitia
+          illo aut voluptatum, quas.
+        </p>
+        <div className="flex w-full gap-2">
+          <button
+            disabled={true}
+            className={`${status === "active" ? "hidden" : "block"} bg-zinc-700 hover:bg-zinc-600 py-2 rounded-lg text-zinc-300 font-thin w-full text-sm cursor-not-allowed`}
+          >
+            Delete
+          </button>
+
+          <Dialog>
+            <DialogTrigger
+              className={`${status === "active" ? "bg-rose-800" : "bg-sky-400/30 border-[0.5px] border-sky-500 hover:bg-sky-600/30"} py-2 rounded-lg text-neutral-950 font-thin cursor-pointer w-full text-sm shadow-md`}
+            >
+              {status === "active" ? "End" : "Start"}
+            </DialogTrigger>
+            <DialogContent className="bg-zinc-50 border-zinc-700 flex justify-center items-center w-full md:w-full">
+              <CheckHair startSession={startSession} />
+            </DialogContent>
+          </Dialog>
+        </div>
+      </li>
+    </div>
   );
 }
 

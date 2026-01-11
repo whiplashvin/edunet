@@ -44,19 +44,19 @@ function SlideControls() {
     <div className="p-2 flex justify-between gap-2">
       <div className="flex gap-4 items-center">
         <GrPrevious
-          className="p-2  text-blue-200 text-3xl hover:bg-neutral-600 hover:text-blue-300 rounded-full"
+          className="p-2  text-sky-200 text-3xl hover:bg-neutral-600 hover:text-sky-300 rounded-full"
           onClick={prevPage}
         />
         <GrNext
-          className="p-2  text-blue-200 text-3xl hover:bg-neutral-600 hover:text-blue-300 rounded-full"
+          className="p-2  text-sky-200 text-3xl hover:bg-neutral-600 hover:text-sky-300 rounded-full"
           onClick={nextPage}
         />
       </div>
       <div className="flex gap-4 items-center">
-        <button className="px-2 py-1 rounded bg-blue-200 text-neutral-30 hover:scale-105 text-zinc-900 font-thin text-[10px]">
+        <button className="px-2 py-1 rounded bg-sky-200 text-neutral-30 hover:scale-105 text-zinc-900 font-thin text-[10px]">
           annotate
         </button>
-        <span className="text-blue-200 text-xs">
+        <span className="text-sky-200 text-xs">
           {currPage + 1}/{ImageUrls.length}
         </span>
         <button

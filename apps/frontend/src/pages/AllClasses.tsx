@@ -16,13 +16,10 @@ function AllClasses() {
       }}
       className={`w-full col-span-5 relative overflow-y-auto scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-500`}
     >
-      {/* <div className="flex items-end gap-1 text-zinc-900 justify-center p-4 border-b border-zinc-200 bg-rose-400">
-        <LiaSchoolSolid className="text-3xl md:text-3xl" />
-        <span className="text-xl md:text-xl font-light">Mahei</span>
-      </div> */}
+      <div className="border-b border-zinc-200 h-14" />
       <div>
-        <h1 className="text-sm md:text-xl text-zinc-900 font-light border-b border-zinc-200 p-4 pl-8">
-          Classes
+        <h1 className="text-sm md:text-2xl text-sky-600 font-extralight p-4 pl-8 my-5">
+          Live Classes
         </h1>
         <AllClassesUser />
       </div>
