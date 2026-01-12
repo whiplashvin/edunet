@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@repo/db": "*",
+    "esbuild": "^0.27.2",
     "kafkajs": "^2.2.4"
   }
 }

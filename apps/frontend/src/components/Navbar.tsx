@@ -32,7 +32,7 @@ function Navbar() {
   }, [setNavbarHeight]);
   return (
     <div
-      className="xl:hidden sticky top-5 flex justify-between items-center z-50 bg-sky-100 px-2 rounded-lg w-[95%] mx-auto"
+      className="xl:hidden sticky top-5 flex justify-between items-center z-50 bg-neutral-200/50 px-2 rounded-xl w-[95%] mx-auto"
       ref={ref}
     >
       <div className="flex gap-1 text-zinc-900 justify-start items-center p-4">
@@ -42,7 +42,7 @@ function Navbar() {
           height="24"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="currentColor"
+          stroke="#00a6f4"
           strokeWidth="1.1"
           strokeLinecap="round"
           strokeLinejoin="round"

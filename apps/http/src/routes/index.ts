@@ -28,7 +28,7 @@ route.post("/signup", async (req, res) => {
     return;
   }
   const hashedPassword = bcrypt.hashSync(password, 10);
-
+  console.log(hashedPassword);
   try {
     const newUser = await db.user.create({
       data: {
@@ -46,14 +46,24 @@ route.post("/signup", async (req, res) => {
     });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      const target = err.meta?.target as String[];
-      const fieldName = target[0];
-      if (fieldName === "username") {
-        res.status(500).json({ message: "Username already taken" });
-        return;
-      } else if (fieldName === "email") {
-        res.status(500).json({ message: "Email already taken" });
-        return;
+      // const target = err.meta?.target as String[];
+      // const fieldName = target[0];
+      // if (fieldName === "username") {
+      //   res.status(500).json({ message: "Username already taken" });
+      //   return;
+      // } else if (fieldName === "email") {
+      //   res.status(500).json({ message: "Email already taken" });
+      //   return;
+      // }
+
+      const target = err.meta?.target;
+      if (target && Array.isArray(target) && target.length > 0) {
+        const fieldName = target[0] as string;
+        if (fieldName === "username") {
+          return res.status(409).json({ message: "Username already taken" });
+        } else if (fieldName === "email") {
+          return res.status(409).json({ message: "Email already taken" });
+        }
       }
     }
     res.status(500).json({ message: "An error occured while signing up." });

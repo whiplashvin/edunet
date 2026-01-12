@@ -1,9 +1,13 @@
 FROM node:24-alpine
 
-WORKDIR /app/packages/db
+RUN apk add --no-cache openssl
 
-COPY packages/db ./
+WORKDIR /app
 
-RUN npm install
+COPY package*.json ./
+COPY turbo.json ./
+COPY packages/db ./packages/db
 
-CMD ["sh"]
+RUN npm ci --workspaces
+
+CMD ["sh", "-c", "cd packages/db && npx prisma migrate deploy"]

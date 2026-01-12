@@ -23,6 +23,7 @@
 
 
 
+
 # ============================================
 # Stage 1: Dependencies (for building)
 # ============================================
@@ -58,12 +59,11 @@ COPY packages ./packages
 COPY apps/http ./apps/http
 
 # First: Install all workspace dependencies
-RUN npm install --workspaces
+RUN npm ci --workspaces
 
 # Second: Force install Prisma 7 locally in packages/db
 # This ensures prisma/config module is available for prisma.config.ts
 RUN cd packages/db && npm install prisma@7.2.0 @prisma/client@7.2.0 --save-exact
-
 
 # Fourth: Now generate (prisma package is available)
 RUN cd packages/db && npx prisma generate
@@ -91,14 +91,8 @@ COPY package*.json ./
 # Install ONLY production dependencies
 RUN npm ci --only=production && npm cache clean --force
 
-# Copy Prisma schema and generated client from builder
-COPY --from=builder --chown=nodejs:nodejs /app/packages/db ./packages/db
-
-# Copy built application from builder
 COPY --from=builder --chown=nodejs:nodejs /app/apps/http/dist ./apps/http/dist
-
-# Copy Prisma migrations (needed for prisma migrate deploy)
-COPY --from=builder --chown=nodejs:nodejs /app/packages/db/prisma ./packages/db/prisma
+# COPY --from=builder --chown=nodejs:nodejs /app/packages/db ./packages/db
 
 # Switch to non-root user
 USER nodejs
@@ -107,6 +101,7 @@ EXPOSE 3000
 
 # Run migrations and start the app
 CMD ["sh", "-c", "node apps/http/dist/index.js"]
+
 
 
 # "http-start": "npm run prisma-init && cd apps/http && npm run dev",

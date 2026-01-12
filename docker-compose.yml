@@ -8,7 +8,7 @@ services:
       - "7880:7880"
       - "7881:7881/udp"
     environment:
-      NODE_IP: 192.168.1.7
+      NODE_IP: 192.168.1.4
       UDP_PORT: 7881
     networks:
       - edu-net
@@ -54,6 +54,14 @@ services:
       KAFKA_CREATE_TOPICS: "my-app:1:1"
     networks:
       - edu-net
+  migrator:
+    build:
+      context: .
+      dockerfile: ./Docker/migration/Dockerfile
+    networks:
+      - edu-net
+    depends_on:
+      - db
   server:
     build:
       context: .
@@ -76,6 +84,8 @@ services:
       dockerfile: ./Docker/ws/Dockerfile
     ports:
       - "3001:3001"
+    env_file:
+      - ./apps/webSocket/.env
     networks:
       - edu-net
     depends_on:

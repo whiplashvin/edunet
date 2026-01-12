@@ -150,7 +150,6 @@ route.post("/:sessionId/join", userMiddleware, async (req, res) => {
         reject();
       }
     });
-
     redisPublisher.lPush(
       "join-request",
       JSON.stringify({

@@ -34,7 +34,6 @@ export class User {
           this.username = user.username;
           this.userRole = user.role;
           this.sessionId = parsed.payload.sessionId;
-          console.log(this);
           SessionManager.getInstance().addUser(parsed.payload.sessionId, this);
           break;
         case "leave":
@@ -129,7 +128,6 @@ export class User {
           );
           break;
         case "end-class":
-          console.log("ending...");
           SessionManager.getInstance().endClass(parsed.payload.sessionId);
           break;
         case "join-permission":

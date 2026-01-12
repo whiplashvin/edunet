@@ -435,6 +435,7 @@ export class SessionManager {
     console.log(this.sessions.get(sessionId));
   }
   joinRequest(sessionId: string, username: string, uniqueId: string) {
+    console.log(sessionId, username);
     this.sessions.get(sessionId)?.forEach((u) => {
       if (u.userRole === "admin") {
         u.socket.send(

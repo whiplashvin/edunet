@@ -3,7 +3,8 @@ import { User } from "./User";
 import { Kafka } from "kafkajs";
 import { createClient } from "redis";
 import { SessionManager } from "./SessionManager";
-require("dotenv").config();
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const wss = new WebSocketServer({ port: 3001 });
 
@@ -29,13 +30,13 @@ wss.on("connection", async (ws) => {
 });
 
 (async () => {
-  await producer.connect();
-  console.log("kafka producer running.");
   await redisSubscriber.connect();
   redisSubscriber.on("error", (err) => console.log("Redis sub Error", err));
   await redisPublisher.connect();
   redisSubscriber.on("error", (err) => console.log("Redis pub Error", err));
   console.log("Redis connected");
+  await producer.connect();
+  console.log("kafka producer running.");
 })()
   .then(async () => {
     while (true) {

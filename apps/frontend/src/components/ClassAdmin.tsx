@@ -77,7 +77,7 @@ function ClassAdmin({
   return (
     <div className="w-ful h-full p-2 bg-white/10 rounded-xl border border-white shadow-xl">
       <li className="mb-2 px-4 py-3 rounded-lg bg-zinc-100 w-full h-full border-[0.5px] border-zinc-200 shadow">
-        <div className="flex justify-between mb-5 flex-wrap">
+        <div className="flex justify-between mb-7 flex-wrap">
           <span className="text-zinc-900 font-thin text-xl md:text-2xl tracking-normal">
             {title}
           </span>
@@ -88,7 +88,7 @@ function ClassAdmin({
             <span>{status}</span>
           </div>
         </div>
-        <p className="text-zinc-700 text-[10px] md:text-[12px]  leading-5 font-extralight mb-5">
+        <p className="text-zinc-700 text-[10px] md:text-xs leading-5 font-extralight mb-7">
           <span className="text-sky-500">Description:</span> Lorem ipsum dolor
           sit amet consectetur adipisicing elit. Sed autem non tenetur! Mollitia
           illo aut voluptatum, quas.
