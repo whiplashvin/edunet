@@ -15,7 +15,7 @@ const route = express.Router();
 route.use("/session", sessionRoute);
 
 route.get("/health", (req, res) => {
-  res.status(200).json({ message: "Healthy server. LiveClasses API running." });
+  res.status(200).json({ message: "Healthy server. Edunet API running." });
 });
 
 route.post("/signup", async (req, res) => {
