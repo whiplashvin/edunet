@@ -214,7 +214,7 @@ const maxBatch = 20;
               });
               break;
             case "message":
-              console.log("chat");
+              console.log("chat-message");
               await db.chat.create({
                 data: {
                   session_Id: payload.sessionId,
