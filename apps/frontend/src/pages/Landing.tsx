@@ -1,7 +1,3 @@
-// import Button from "@/components/Button";
-// import { useNavigate } from "react-router-dom";
-// import screen from "../assets/screen.png";
-// import educator from "../assets/educator.png";
 import SigninPage from "./SigninPage";
 
 function Landing() {
